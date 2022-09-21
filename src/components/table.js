@@ -2,11 +2,14 @@ import React, { useContext } from 'react';
 import myContext from '../context/context';
 
 function Table() {
-  const { planets } = useContext(myContext);
-  console.log(planets);
+  const { planets, filter } = useContext(myContext);
+  const { planetName } = filter;
+  const filtro = planets.filter(({ name }) => name.match(planetName));
+  console.log('filtro', filtro);
 
   return (
     <div>
+      <h1>{ planetName }</h1>
       <table>
         <tr>
           <th>Name</th>
@@ -23,7 +26,7 @@ function Table() {
           <th>Edited</th>
           <th>Url</th>
         </tr>
-        {planets
+        {filtro
           .map(({
             name,
             rotation_period: rotationPeriod,
@@ -39,7 +42,6 @@ function Table() {
             edited,
             url,
           }) => (
-
             <tr key={ name }>
               <td>{name}</td>
               <td>{rotationPeriod }</td>

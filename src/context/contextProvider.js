@@ -5,6 +5,7 @@ import myContext from './context';
 function MyContextProvider({ children }) {
   const endPoint = 'https://swapi.dev/api/planets';
   const [planetsList, setPlanets] = useState([]);
+  const [planetFilter, setFilter] = useState({});
 
   useEffect(() => {
     const getPlanets = async () => {
@@ -19,12 +20,28 @@ function MyContextProvider({ children }) {
   },
   []);
 
+  const onHandlechange = ({ target }) => {
+    const { value, name } = target;
+    setFilter({
+      [name]: value,
+    });
+  };
+
   const planetsObj = {
     planets: planetsList,
+    filter: planetFilter,
   };
 
   return (
     <myContext.Provider value={ planetsObj }>
+      <form>
+        <input
+          data-testid="name-filter"
+          type="text"
+          name="planetName"
+          onChange={ onHandlechange }
+        />
+      </form>
       {children}
     </myContext.Provider>
   );
