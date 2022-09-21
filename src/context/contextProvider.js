@@ -4,7 +4,8 @@ import myContext from './context';
 
 function MyContextProvider({ children }) {
   const endPoint = 'https://swapi.dev/api/planets';
-  const [planetsList, setPlanets] = useState([]);
+
+  const [planetsListApi, setPlanetsOnApi] = useState([]);
   const [planetFilter, setFilter] = useState({});
 
   useEffect(() => {
@@ -12,34 +13,34 @@ function MyContextProvider({ children }) {
       const response = await fetch(endPoint);
       const { results } = await response.json();
       const planets = results.map((planetas) => {
-        delete planetas.residents; return planetas;
+        delete planetas.residents;
+        return planetas;
       });
-      setPlanets(planets);
+      setPlanetsOnApi(planets);
     };
     getPlanets();
-  },
-  []);
+  }, []);
 
-  const onHandlechange = ({ target }) => {
+  const setFilterChange = ({ target }) => {
     const { value, name } = target;
     setFilter({
       [name]: value,
     });
   };
 
-  const planetsObj = {
-    planets: planetsList,
-    filter: planetFilter,
+  const planetsValues = {
+    planetsApi: planetsListApi,
+    filter: { planetName: planetFilter.planetName },
   };
 
   return (
-    <myContext.Provider value={ planetsObj }>
+    <myContext.Provider value={ planetsValues }>
       <form>
         <input
           data-testid="name-filter"
           type="text"
           name="planetName"
-          onChange={ onHandlechange }
+          onChange={ setFilterChange }
         />
       </form>
       {children}
