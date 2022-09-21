@@ -4,8 +4,7 @@ import myContext from '../context/context';
 function Table() {
   const { planets, filter } = useContext(myContext);
   const { planetName } = filter;
-  const filtro = planets.filter(({ name }) => name.match(planetName));
-  console.log('filtro', filtro);
+  const filterPlanet = planets.filter(({ name }) => name.match(planetName));
 
   return (
     <div>
@@ -26,7 +25,7 @@ function Table() {
           <th>Edited</th>
           <th>Url</th>
         </tr>
-        {filtro
+        {filterPlanet
           .map(({
             name,
             rotation_period: rotationPeriod,
