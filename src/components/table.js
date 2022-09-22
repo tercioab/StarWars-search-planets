@@ -8,20 +8,20 @@ function Table() {
   const filterPlanet = planetsApi.filter((planet) => planet.name.match(planetName));
   const filterByNumber = numericFilter
     .map(({ colum, value, comparison }) => filterPlanet.filter(
-      (test) => (comparison === 'igual a' && test[colum] === value)
-        || (comparison === 'menor que' && test[colum] < value)
-        || (comparison === 'maior que' && test[colum] > value),
+      (test) => (comparison === 'igual a' && Number(test[colum]) === Number(value))
+        || (comparison === 'menor que' && Number(test[colum]) < Number(value))
+        || (comparison === 'maior que' && Number(test[colum]) > Number(value)),
     ));
+
   const numberOfFilter = 0;
-  const decideTeste = filterByNumber.length > numberOfFilter
+  const filterPlanetReturn = filterByNumber.length > numberOfFilter
     ? filterByNumber[filterByNumber.length - 1]
     : filterPlanet;
 
-  console.log(decideTeste);
   return (
     <div>
       <table>
-        <tbody>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Rotation</th>
@@ -37,7 +37,9 @@ function Table() {
             <th>Edited</th>
             <th>Url</th>
           </tr>
-          {decideTeste.map(
+        </thead>
+        <tbody>
+          {filterPlanetReturn.map(
             ({
               name,
               rotation_period: rotationPeriod,
