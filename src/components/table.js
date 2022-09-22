@@ -4,11 +4,9 @@ import myContext from '../context/context';
 function Table() {
   const { planetsApi, filter } = useContext(myContext);
   const { planetName } = filter;
-  const setFilterPlanet = planetsApi.filter(({ name }) => name.match(planetName));
-
+  const filterPlanet = planetsApi.filter((planet) => planet.name.match(planetName));
   return (
     <div>
-      <h1>{planetName}</h1>
       <table>
         <tbody>
           <tr>
@@ -26,7 +24,7 @@ function Table() {
             <th>Edited</th>
             <th>Url</th>
           </tr>
-          {setFilterPlanet.map(
+          {filterPlanet.map(
             ({
               name,
               rotation_period: rotationPeriod,
