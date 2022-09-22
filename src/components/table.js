@@ -3,8 +3,21 @@ import myContext from '../context/context';
 
 function Table() {
   const { planetsApi, filter } = useContext(myContext);
-  const { planetName } = filter;
+  const { planetName, numericFilter } = filter;
+
   const filterPlanet = planetsApi.filter((planet) => planet.name.match(planetName));
+  const filterByNumber = numericFilter
+    .map(({ colum, value, comparison }) => filterPlanet.filter(
+      (test) => (comparison === 'igual a' && test[colum] === value)
+        || (comparison === 'menor que' && test[colum] < value)
+        || (comparison === 'maior que' && test[colum] > value),
+    ));
+  const numberOfFilter = 0;
+  const decideTeste = filterByNumber.length > numberOfFilter
+    ? filterByNumber[filterByNumber.length - 1]
+    : filterPlanet;
+
+  console.log(decideTeste);
   return (
     <div>
       <table>
@@ -24,7 +37,7 @@ function Table() {
             <th>Edited</th>
             <th>Url</th>
           </tr>
-          {filterPlanet.map(
+          {decideTeste.map(
             ({
               name,
               rotation_period: rotationPeriod,

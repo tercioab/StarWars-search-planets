@@ -7,6 +7,13 @@ function MyContextProvider({ children }) {
 
   const [planetsListApi, setPlanetsOnApi] = useState([]);
   const [planetFilterByName, setFilterByName] = useState({});
+  const [groupValuesFilter, setValuesOfFilter] = useState({
+    value: 0,
+    colum: 'population',
+    comparison: 'maior que',
+
+  });
+  const [NumericValues, setFilterBynumericValues] = useState([]);
 
   useEffect(() => {
     const getPlanets = async () => {
@@ -28,46 +35,72 @@ function MyContextProvider({ children }) {
     });
   };
 
+  const clickFilterGroup = ({ target }) => {
+    const { value, name } = target;
+    setValuesOfFilter((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const OnNumericValues = (e) => {
+    e.preventDefault();
+    setFilterBynumericValues((prev) => ([
+      ...prev,
+      groupValuesFilter,
+    ]));
+  };
+
   const planetsValues = {
     planetsApi: planetsListApi,
     filter: {
       planetName: planetFilterByName.planetName,
+      numericFilter: NumericValues,
     },
   };
 
   return (
     <myContext.Provider value={ planetsValues }>
       <div>
-        <form>
 
+        <form>
           <input
             data-testid="name-filter"
             type="text"
             name="planetName"
             onChange={ setFilterNameChange }
           />
-        </form>
-        <form>
-          <select data-testid="column-filter">
-            <option name="columFilter" value="population" selected>population</option>
-            <option name="columFilter" value="orbital_period">orbital_period</option>
-            <option name="columFilter" value="diameter">diameter</option>
-            <option name="columFilter" value="rotation_period ">rotation_period</option>
-            <option name="columFilter" value="surface_water">surface_water</option>
+          <select
+            onClick={ clickFilterGroup }
+            name="colum"
+            data-testid="column-filter"
+          >
+            <option value="population" selected>population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period ">rotation_period</option>
+            <option value="surface_water">surface_water</option>
           </select>
-          <select data-testid="comparison-filter">
-            <option name="comparisonFilter" value="maior" selected>maior que</option>
-            <option name="comparisonFilter" value="menor">menor que</option>
-            <option name="comparisonFilter" value="igual">igual a</option>
+          <select
+            onClick={ clickFilterGroup }
+            name="comparison"
+            data-testid="comparison-filter"
+          >
+            <option value="maior que" selected>maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
           </select>
           <input
+            onChange={ clickFilterGroup }
             data-testid="value-filter"
-            name="number"
+            name="value"
             type="number"
+            value={ groupValuesFilter.value }
           />
           <button
-            type="submit"
+            type="button"
             data-testid="button-filter"
+            onClick={ OnNumericValues }
           >
             enviar
 
