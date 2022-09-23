@@ -3,20 +3,39 @@ import myContext from '../context/context';
 
 function Table() {
   const { planetsApi, filter } = useContext(myContext);
-  const { planetName, numericFilter } = filter;
+  const { planetName, groupOfValues } = filter;
 
-  const filterPlanet = planetsApi.filter((planet) => planet.name.match(planetName));
-  const filterByNumber = numericFilter
-    .map(({ colum, value, comparison }) => filterPlanet.filter(
-      (test) => (comparison === 'igual a' && Number(test[colum]) === Number(value))
-        || (comparison === 'menor que' && Number(test[colum]) < Number(value))
-        || (comparison === 'maior que' && Number(test[colum]) > Number(value)),
-    ));
+  // const planetss = planetsApi
+  //   .map((planets) => groupOfValues
+  //     .forEach((filtro) => {
+  //       const obj = [];
+  //       obj.push(planets.population === filtro.value);
+  //       return obj.every((el) => el);
+  //     }));
 
-  const numberOfFilter = 0;
-  const filterPlanetReturn = filterByNumber.length > numberOfFilter
-    ? filterByNumber[filterByNumber.length - 1]
-    : filterPlanet;
+  // const filtered = (linha) => {
+  //   const bools = [];
+  //   groupOfValues.forEach((filtro) => {
+  //     bools.push(Number(linha[filtro.colum]) === Number(filtro.value));
+  //   });
+  //   return bools.every((el) => el);
+  // };
+
+  const filtered = (linha) => {
+    const bools = [];
+    groupOfValues.forEach((filtro) => {
+      if (filtro.comparison === 'maior que') {
+        bools.push(Number(linha[filtro.colum]) > Number(filtro.value));
+      }
+      if (filtro.comparison === 'menor que') {
+        bools.push(Number(linha[filtro.colum]) < Number(filtro.value));
+      }
+      if (filtro.comparison === 'igual a') {
+        bools.push(Number(linha[filtro.colum]) === Number(filtro.value));
+      }
+    });
+    return bools.every((el) => el);
+  };
 
   return (
     <div>
@@ -39,39 +58,42 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {filterPlanetReturn.map(
-            ({
-              name,
-              rotation_period: rotationPeriod,
-              orbital_period: orbitalPeriod,
-              diameter,
-              climate,
-              gravity,
-              terrain,
-              surface_water: surfaceWater,
-              population,
-              films,
-              created,
-              edited,
-              url,
-            }) => (
-              <tr key={ name }>
-                <td>{name}</td>
-                <td>{rotationPeriod}</td>
-                <td>{orbitalPeriod}</td>
-                <td>{diameter}</td>
-                <td>{climate}</td>
-                <td>{gravity}</td>
-                <td>{terrain}</td>
-                <td>{surfaceWater}</td>
-                <td>{population}</td>
-                <td>{films}</td>
-                <td>{created}</td>
-                <td>{edited}</td>
-                <td>{url}</td>
-              </tr>
-            ),
-          )}
+          {planetsApi
+            .filter((planets) => planets.name.match(planetName))
+            .filter(filtered)
+            .map(
+              ({
+                name,
+                rotation_period: rotationPeriod,
+                orbital_period: orbitalPeriod,
+                diameter,
+                climate,
+                gravity,
+                terrain,
+                surface_water: surfaceWater,
+                population,
+                films,
+                created,
+                edited,
+                url,
+              }) => (
+                <tr key={ name }>
+                  <td>{name}</td>
+                  <td>{rotationPeriod}</td>
+                  <td>{orbitalPeriod}</td>
+                  <td>{diameter}</td>
+                  <td>{climate}</td>
+                  <td>{gravity}</td>
+                  <td>{terrain}</td>
+                  <td>{surfaceWater}</td>
+                  <td>{population}</td>
+                  <td>{films}</td>
+                  <td>{created}</td>
+                  <td>{edited}</td>
+                  <td>{url}</td>
+                </tr>
+              ),
+            )}
         </tbody>
       </table>
     </div>

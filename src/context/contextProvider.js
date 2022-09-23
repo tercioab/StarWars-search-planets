@@ -6,27 +6,26 @@ function MyContextProvider({ children }) {
   const endPoint = 'https://swapi.dev/api/planets';
 
   const [planetsListApi, setPlanetsOnApi] = useState([]);
-  const [planetFilterByName, setFilterByName] = useState({});
-  const [groupValuesFilter, setValuesOfFilter] = useState({
+  const [planetFilterByName, setFilterByName] = useState('');
+  const [filterValues, setFilterValues] = useState({
     value: 0,
     colum: 'population',
     comparison: 'maior que',
-
   });
-  const [NumericValues, setFilterBynumericValues] = useState([]);
+  const [groupOfValues, setGroupOfValues] = useState([]);
 
   useEffect(() => {
     const getPlanets = async () => {
       const response = await fetch(endPoint);
       const { results } = await response.json();
-      const planets = results.map((planetas) => {
+      const planets = await results.map((planetas) => {
         delete planetas.residents;
         return planetas;
       });
       setPlanetsOnApi(planets);
     };
     getPlanets();
-  }, []);
+  }, [setPlanetsOnApi]);
 
   const setFilterNameChange = ({ target }) => {
     const { value, name } = target;
@@ -35,34 +34,39 @@ function MyContextProvider({ children }) {
     });
   };
 
-  const clickFilterGroup = ({ target }) => {
+  const onHandleChange = ({ target }) => {
     const { value, name } = target;
-    setValuesOfFilter((prev) => ({
+    setFilterValues((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const OnNumericValues = (e) => {
+  const onHanleClick = (e) => {
     e.preventDefault();
-    setFilterBynumericValues((prev) => ([
+    setGroupOfValues((prev) => ([
       ...prev,
-      groupValuesFilter,
+      filterValues,
     ]));
+    setFilterValues({
+      value: 0,
+      colum: 'population',
+      comparison: 'maior que',
+    });
   };
 
+  const { planetName } = planetFilterByName;
   const planetsValues = {
     planetsApi: planetsListApi,
     filter: {
-      planetName: planetFilterByName.planetName,
-      numericFilter: NumericValues,
+      planetName,
+      groupOfValues,
     },
   };
 
   return (
     <myContext.Provider value={ planetsValues }>
       <div>
-
         <form>
           <input
             data-testid="name-filter"
@@ -70,19 +74,23 @@ function MyContextProvider({ children }) {
             name="planetName"
             onChange={ setFilterNameChange }
           />
+
           <select
-            onClick={ clickFilterGroup }
+            onChange={ onHandleChange }
+            value={ filterValues.colum }
             name="colum"
             data-testid="column-filter"
           >
             <option value="population" selected>population</option>
             <option value="orbital_period">orbital_period</option>
             <option value="diameter">diameter</option>
-            <option value="rotation_period ">rotation_period</option>
+            <option value="rotation_period">rotation_period</option>
             <option value="surface_water">surface_water</option>
           </select>
+
           <select
-            onClick={ clickFilterGroup }
+            onChange={ onHandleChange }
+            value={ filterValues.comparison }
             name="comparison"
             data-testid="comparison-filter"
           >
@@ -90,22 +98,35 @@ function MyContextProvider({ children }) {
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
+
           <input
-            onChange={ clickFilterGroup }
+            onChange={ onHandleChange }
+            value={ filterValues.value }
             data-testid="value-filter"
             name="value"
             type="number"
-            value={ groupValuesFilter.value }
           />
+
           <button
             type="button"
             data-testid="button-filter"
-            onClick={ OnNumericValues }
+            onClick={ onHanleClick }
           >
             enviar
 
           </button>
         </form>
+        {groupOfValues.map(({ value, colum, comparison }, i) => (
+          <div key={ i }>
+            <span>
+              {value}
+              {' '}
+              {colum}
+              {' '}
+              {comparison }
+            </span>
+            <p />
+          </div>))}
       </div>
       {children}
     </myContext.Provider>
