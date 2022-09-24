@@ -13,6 +13,13 @@ function MyContextProvider({ children }) {
     comparison: 'maior que',
   });
   const [groupOfValues, setGroupOfValues] = useState([]);
+  const [optionsOfColum, setOptionsColum] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   useEffect(() => {
     const getPlanets = async () => {
@@ -24,8 +31,13 @@ function MyContextProvider({ children }) {
       });
       setPlanetsOnApi(planets);
     };
+    setFilterValues({
+      value: 0,
+      colum: optionsOfColum[0],
+      comparison: 'maior que',
+    });
     getPlanets();
-  }, [setPlanetsOnApi]);
+  }, [optionsOfColum, setPlanetsOnApi]);
 
   const setFilterNameChange = ({ target }) => {
     const { value, name } = target;
@@ -44,48 +56,80 @@ function MyContextProvider({ children }) {
 
   const onHanleClick = (e) => {
     e.preventDefault();
-    setGroupOfValues((prev) => ([
-      ...prev,
-      filterValues,
-    ]));
-    setFilterValues({
-      value: 0,
-      colum: 'population',
-      comparison: 'maior que',
+    setGroupOfValues((prev) => [...prev, filterValues]);
+
+    const filtredOptions = optionsOfColum.filter((colum) => colum !== filterValues.colum);
+    console.log(filtredOptions);
+
+    setOptionsColum(filtredOptions);
+  };
+
+  const filteredGroupValues = (planets) => {
+    const bools = [];
+    groupOfValues.forEach(({ comparison, colum, value }) => {
+      if (comparison === 'maior que') {
+        bools.push(Number(planets[colum]) > Number(value));
+      }
+      if (comparison === 'menor que') {
+        bools.push(Number(planets[colum]) < Number(value));
+      }
+      if (comparison === 'igual a') {
+        bools.push(Number(planets[colum]) === Number(value));
+      }
     });
+    return bools.every((el) => el);
+  };
+
+  const teste = (e) => {
+    e.preventDefault();
+  };
+
+  const clear = () => {
+    setGroupOfValues([]);
+    setOptionsColum([
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ]);
   };
 
   const { planetName } = planetFilterByName;
   const planetsValues = {
     planetsApi: planetsListApi,
+    functions: {
+      filteredGroupValues,
+    },
     filter: {
       planetName,
       groupOfValues,
+      optionsOfColum,
     },
   };
 
   return (
     <myContext.Provider value={ planetsValues }>
       <div>
-        <form>
+        <form onSubmit={ teste }>
           <input
             data-testid="name-filter"
             type="text"
             name="planetName"
             onChange={ setFilterNameChange }
           />
-
           <select
             onChange={ onHandleChange }
             value={ filterValues.colum }
             name="colum"
             data-testid="column-filter"
           >
-            <option value="population" selected>population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            {optionsOfColum
+              .map((columValue) => (
+                <option value={ columValue } key={ columValue }>
+                  {columValue}
+                </option>
+              ))}
           </select>
 
           <select
@@ -94,7 +138,9 @@ function MyContextProvider({ children }) {
             name="comparison"
             data-testid="comparison-filter"
           >
-            <option value="maior que" selected>maior que</option>
+            <option value="maior que" selected>
+              maior que
+            </option>
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
@@ -113,20 +159,29 @@ function MyContextProvider({ children }) {
             onClick={ onHanleClick }
           >
             enviar
+          </button>
+          <button
+            data-testid="button-remove-filters"
+            type="button"
+            onClick={ clear }
+          >
+            limpa
 
           </button>
         </form>
         {groupOfValues.map(({ value, colum, comparison }, i) => (
           <div key={ i }>
-            <span>
+            <span data-testid="filter">
               {value}
               {' '}
               {colum}
               {' '}
-              {comparison }
+              {comparison}
+              <button onClick={ () => clearOne(colum) } type="button">lixo</button>
             </span>
             <p />
-          </div>))}
+          </div>
+        ))}
       </div>
       {children}
     </myContext.Provider>
