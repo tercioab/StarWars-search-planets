@@ -59,7 +59,7 @@ function MyContextProvider({ children }) {
     setGroupOfValues((prev) => [...prev, filterValues]);
 
     const filtredOptions = optionsOfColum.filter((colum) => colum !== filterValues.colum);
-    console.log(filtredOptions);
+    // console.log(filtredOptions);
 
     setOptionsColum(filtredOptions);
   };
@@ -80,11 +80,11 @@ function MyContextProvider({ children }) {
     return bools.every((el) => el);
   };
 
-  const teste = (e) => {
+  const prevent = (e) => {
     e.preventDefault();
   };
 
-  const clear = () => {
+  const onClickClearAll = () => {
     setGroupOfValues([]);
     setOptionsColum([
       'population',
@@ -93,6 +93,11 @@ function MyContextProvider({ children }) {
       'rotation_period',
       'surface_water',
     ]);
+  };
+
+  const clearOne = (colum) => {
+    const teste = groupOfValues.filter((valuesFilter) => valuesFilter.colum !== colum);
+    setGroupOfValues(teste);
   };
 
   const { planetName } = planetFilterByName;
@@ -111,7 +116,7 @@ function MyContextProvider({ children }) {
   return (
     <myContext.Provider value={ planetsValues }>
       <div>
-        <form onSubmit={ teste }>
+        <form onSubmit={ prevent }>
           <input
             data-testid="name-filter"
             type="text"
@@ -163,7 +168,7 @@ function MyContextProvider({ children }) {
           <button
             data-testid="button-remove-filters"
             type="button"
-            onClick={ clear }
+            onClick={ onClickClearAll }
           >
             limpa
 
