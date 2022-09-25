@@ -96,11 +96,9 @@ function MyContextProvider({ children }) {
 
     return boolsResult.every((el) => el);
   };
-
   const preventForm = (e) => {
     e.preventDefault();
   };
-
   const onClickClearAll = () => {
     setGroupOfValues([]);
     setOptionscolumn([
@@ -111,7 +109,6 @@ function MyContextProvider({ children }) {
       'surface_water',
     ]);
   };
-
   const clearOneFilter = (column) => {
     const unusedOptions = groupOfValues
       .filter((valuesFilter) => valuesFilter.column !== column);
@@ -119,9 +116,7 @@ function MyContextProvider({ children }) {
     setOptionscolumn((prev) => [...prev, column]);
   };
   const { planetName } = planetFilterByName;
-
   const filterHandleName = (planets) => planets.name.match(planetName);
-
   const planetsValues = {
     planetsApi: planetsListApi,
     groupSortedOptions,
@@ -130,7 +125,6 @@ function MyContextProvider({ children }) {
       filterHandleName,
     },
   };
-
   return (
     <myContext.Provider value={ planetsValues }>
       <div>
@@ -166,7 +160,6 @@ function MyContextProvider({ children }) {
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
-
           <input
             onChange={ onHandleChangeFilter }
             value={ filterValues.value }
@@ -193,6 +186,7 @@ function MyContextProvider({ children }) {
           <select
             onChange={ sortChange }
             name="column"
+            value={ sortedOptions.column }
             data-testid="column-sort"
           >
             <option value="population" key="population">population</option>
@@ -201,27 +195,34 @@ function MyContextProvider({ children }) {
             <option value="rotation_period" key="rotation_period">rotation_period</option>
             <option value="surface_water" key="surface_water">surface_water</option>
           </select>
-          <input
-            onClick={ sortChange }
-            type="radio"
-            name="sort"
-            data-testid="column-sort-input-asc"
-            value="ASC"
-          />
-          <input
-            onClick={ sortChange }
-            type="radio"
-            name="sort"
-            data-testid="column-sort-input-desc"
-            value="DESC"
-          />
+          <label htmlFor="ASC">
+            ASC
+            <input
+              onClick={ sortChange }
+              type="radio"
+              id="ASC"
+              name="sort"
+              data-testid="column-sort-input-asc"
+              value="ASC"
+            />
+          </label>
+          <label htmlFor="DESC">
+            DESC
+            <input
+              onClick={ sortChange }
+              id="DESC"
+              type="radio"
+              name="sort"
+              data-testid="column-sort-input-desc"
+              value="DESC"
+            />
+          </label>
           <button
             type="button"
             data-testid="column-sort-button"
             onClick={ sortClick }
           >
             ordenar
-
           </button>
         </form>
         {groupOfValues.map(({ value, column, comparison }, i) => (
