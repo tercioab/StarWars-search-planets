@@ -198,7 +198,7 @@ function MyContextProvider({ children }) {
             <option value="orbital_period" key="orbital_period">orbital_period</option>
             <option value="diameter" key="diameter">diameter</option>
             <option value="rotation_period" key="rotation_period">rotation_period</option>
-            <option value="population" key="population">population</option>
+            <option value="surface_water" key="surface_water">surface_water</option>
           </select>
           <input
             onClick={ sortChange }

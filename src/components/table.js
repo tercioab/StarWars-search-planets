@@ -7,12 +7,17 @@ function Table() {
 
   const sorter = (a, b) => {
     const { column, sort } = groupSortedOptions;
-    const ASC = a[column] - b[column];
-    const DESC = b[column] - a[column];
+    const DESC = +a[column] - +b[column];
+    const ASC = +b[column] - +a[column];
 
     if (sort === 'ASC') { return ASC; }
     if (sort === 'DESC') { return DESC; }
     if (sort === '') return planetsApi;
+  };
+
+  const excluedUnknown = (a) => {
+    const { column, sort } = groupSortedOptions;
+    return sort && !Number.isNaN(+a[column]) ? +'-1' : 0;
   };
 
   return (
@@ -40,6 +45,7 @@ function Table() {
             .filter(filterHandleName)
             .filter(filteredGroupValues)
             .sort(sorter)
+            .sort(excluedUnknown)
             .map(
               ({
                 name,
