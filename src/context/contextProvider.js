@@ -9,17 +9,24 @@ function MyContextProvider({ children }) {
   const [planetFilterByName, setFilterByName] = useState('');
   const [filterValues, setFilterValues] = useState({
     value: 0,
-    colum: 'population',
+    column: 'population',
     comparison: 'maior que',
   });
   const [groupOfValues, setGroupOfValues] = useState([]);
-  const [optionsOfColum, setOptionsColum] = useState([
+  const [optionsOfcolumn, setOptionscolumn] = useState([
     'population',
     'orbital_period',
     'diameter',
     'rotation_period',
     'surface_water',
   ]);
+
+  const [sortedOptions, setSortedOptions] = useState({
+    column: 'population',
+    sort: '',
+  });
+
+  const [groupSortedOptions, setGroupSortedOptions] = useState({});
 
   useEffect(() => {
     const getPlanets = async () => {
@@ -33,11 +40,11 @@ function MyContextProvider({ children }) {
     };
     setFilterValues({
       value: 0,
-      colum: optionsOfColum[0],
+      column: optionsOfcolumn[0],
       comparison: 'maior que',
     });
     getPlanets();
-  }, [optionsOfColum, setPlanetsOnApi]);
+  }, [optionsOfcolumn, setPlanetsOnApi]);
 
   const setFilterNameChange = ({ target }) => {
     const { value, name } = target;
@@ -54,27 +61,36 @@ function MyContextProvider({ children }) {
     }));
   };
 
-  const onHanleClick = (e) => {
-    e.preventDefault();
+  const sortChange = ({ target }) => {
+    const { value, name } = target;
+    setSortedOptions((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const sortClick = () => {
+    setGroupSortedOptions(sortedOptions);
+  };
+
+  const onHanleClick = () => {
     setGroupOfValues((prev) => [...prev, filterValues]);
-
-    const filtredOptions = optionsOfColum.filter((colum) => colum !== filterValues.colum);
-    // console.log(filtredOptions);
-
-    setOptionsColum(filtredOptions);
+    const filtredOptions = optionsOfcolumn
+      .filter((column) => column !== filterValues.column);
+    setOptionscolumn(filtredOptions);
   };
 
   const filteredGroupValues = (planets) => {
     const bools = [];
-    groupOfValues.forEach(({ comparison, colum, value }) => {
+    groupOfValues.forEach(({ comparison, column, value }) => {
       if (comparison === 'maior que') {
-        bools.push(Number(planets[colum]) > Number(value));
+        bools.push(Number(planets[column]) > Number(value));
       }
       if (comparison === 'menor que') {
-        bools.push(Number(planets[colum]) < Number(value));
+        bools.push(Number(planets[column]) < Number(value));
       }
       if (comparison === 'igual a') {
-        bools.push(Number(planets[colum]) === Number(value));
+        bools.push(Number(planets[column]) === Number(value));
       }
     });
     return bools.every((el) => el);
@@ -86,7 +102,7 @@ function MyContextProvider({ children }) {
 
   const onClickClearAll = () => {
     setGroupOfValues([]);
-    setOptionsColum([
+    setOptionscolumn([
       'population',
       'orbital_period',
       'diameter',
@@ -95,21 +111,20 @@ function MyContextProvider({ children }) {
     ]);
   };
 
-  const clearOne = (colum) => {
-    const teste = groupOfValues.filter((valuesFilter) => valuesFilter.colum !== colum);
-    setGroupOfValues(teste);
+  const clearOne = (column) => {
+    const unusedOptions = groupOfValues
+      .filter((valuesFilter) => valuesFilter.column !== column);
+    setGroupOfValues(unusedOptions);
   };
-
   const { planetName } = planetFilterByName;
+
+  const filterHandleName = (planets) => planets.name.match(planetName);
   const planetsValues = {
     planetsApi: planetsListApi,
+    groupSortedOptions,
     functions: {
       filteredGroupValues,
-    },
-    filter: {
-      planetName,
-      groupOfValues,
-      optionsOfColum,
+      filterHandleName,
     },
   };
 
@@ -125,18 +140,17 @@ function MyContextProvider({ children }) {
           />
           <select
             onChange={ onHandleChange }
-            value={ filterValues.colum }
-            name="colum"
+            value={ filterValues.column }
+            name="column"
             data-testid="column-filter"
           >
-            {optionsOfColum
-              .map((columValue) => (
-                <option value={ columValue } key={ columValue }>
-                  {columValue}
+            {optionsOfcolumn
+              .map((columnValue) => (
+                <option value={ columnValue } key={ columnValue }>
+                  {columnValue}
                 </option>
               ))}
           </select>
-
           <select
             onChange={ onHandleChange }
             value={ filterValues.comparison }
@@ -174,15 +188,50 @@ function MyContextProvider({ children }) {
 
           </button>
         </form>
-        {groupOfValues.map(({ value, colum, comparison }, i) => (
+        <form onSubmit={ prevent }>
+          <select
+            onChange={ sortChange }
+            name="column"
+            data-testid="column-sort"
+          >
+            <option value="population" key="population">population</option>
+            <option value="orbital_period" key="orbital_period">orbital_period</option>
+            <option value="diameter" key="diameter">diameter</option>
+            <option value="rotation_period" key="rotation_period">rotation_period</option>
+            <option value="population" key="population">population</option>
+          </select>
+          <input
+            onClick={ sortChange }
+            type="radio"
+            name="sort"
+            data-testid="column-sort-input-asc"
+            value="ASC"
+          />
+          <input
+            onClick={ sortChange }
+            type="radio"
+            name="sort"
+            data-testid="column-sort-input-desc"
+            value="DESC"
+          />
+          <button
+            type="button"
+            data-testid="column-sort-button"
+            onClick={ sortClick }
+          >
+            ordenar
+
+          </button>
+        </form>
+        {groupOfValues.map(({ value, column, comparison }, i) => (
           <div key={ i }>
             <span data-testid="filter">
               {value}
               {' '}
-              {colum}
+              {column}
               {' '}
               {comparison}
-              <button onClick={ () => clearOne(colum) } type="button">lixo</button>
+              <button onClick={ () => clearOne(column) } type="button">lixo</button>
             </span>
             <p />
           </div>
@@ -196,5 +245,4 @@ function MyContextProvider({ children }) {
 MyContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
 export default MyContextProvider;

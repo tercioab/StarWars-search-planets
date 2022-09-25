@@ -2,9 +2,19 @@ import React, { useContext } from 'react';
 import myContext from '../context/context';
 
 function Table() {
-  const { planetsApi, filter, functions } = useContext(myContext);
-  const { planetName } = filter;
-  const { filteredGroupValues } = functions;
+  const { planetsApi, functions, groupSortedOptions } = useContext(myContext);
+  const { filteredGroupValues, filterHandleName } = functions;
+
+  const sorter = (a, b) => {
+    const { column, sort } = groupSortedOptions;
+    const ASC = a[column] - b[column];
+    const DESC = b[column] - a[column];
+
+    if (sort === 'ASC') { return ASC; }
+    if (sort === 'DESC') { return DESC; }
+    if (sort === '') return planetsApi;
+  };
+
   return (
     <div>
       <table>
@@ -27,8 +37,9 @@ function Table() {
         </thead>
         <tbody>
           {planetsApi
-            .filter((planets) => planets.name.match(planetName))
+            .filter(filterHandleName)
             .filter(filteredGroupValues)
+            .sort(sorter)
             .map(
               ({
                 name,
@@ -46,7 +57,7 @@ function Table() {
                 url,
               }) => (
                 <tr key={ name }>
-                  <td>{name}</td>
+                  <td data-testid="planet-name">{name}</td>
                   <td>{rotationPeriod}</td>
                   <td>{orbitalPeriod}</td>
                   <td>{diameter}</td>
