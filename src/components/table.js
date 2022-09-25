@@ -7,8 +7,8 @@ function Table() {
 
   const sorter = (a, b) => {
     const { column, sort } = groupSortedOptions;
-    const DESC = +a[column] - +b[column];
-    const ASC = +b[column] - +a[column];
+    const DESC = a[column] - b[column];
+    const ASC = b[column] - a[column];
 
     if (sort === 'ASC') { return ASC; }
     if (sort === 'DESC') { return DESC; }
