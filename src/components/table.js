@@ -3,13 +3,12 @@ import myContext from '../context/context';
 
 function Table() {
   const { planetsApi, functions, groupSortedOptions } = useContext(myContext);
-  const { filteredGroupValues, filterHandleName } = functions;
+  const { filterValueGroup, filterHandleName } = functions;
 
   const sortedColumnValues = (a, b) => {
     const { column, sort } = groupSortedOptions;
     const DESC = a[column] - b[column];
     const ASC = b[column] - a[column];
-
     if (sort === 'ASC') { return ASC; }
     if (sort === 'DESC') { return DESC; }
     if (sort === '') return planetsApi;
@@ -43,7 +42,7 @@ function Table() {
         <tbody>
           {planetsApi
             .filter(filterHandleName)
-            .filter(filteredGroupValues)
+            .filter(filterValueGroup)
             .sort(sortedColumnValues)
             .sort(removeUnknown)
             .map(

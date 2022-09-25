@@ -6,13 +6,15 @@ function MyContextProvider({ children }) {
   const endPoint = 'https://swapi.dev/api/planets';
 
   const [planetsListApi, setPlanetsOnApi] = useState([]);
+  const [groupOfValues, setGroupOfValues] = useState([]);
+  const [groupSortedOptions, setGroupSortedOptions] = useState({});
   const [planetFilterByName, setFilterByName] = useState('');
   const [filterValues, setFilterValues] = useState({
     value: 0,
     column: 'population',
     comparison: 'maior que',
   });
-  const [groupOfValues, setGroupOfValues] = useState([]);
+
   const [optionsOfcolumn, setOptionscolumn] = useState([
     'population',
     'orbital_period',
@@ -26,10 +28,8 @@ function MyContextProvider({ children }) {
     sort: '',
   });
 
-  const [groupSortedOptions, setGroupSortedOptions] = useState({});
-
   useEffect(() => {
-    const getPlanets = async () => {
+    const getPlanetsApi = async () => {
       const response = await fetch(endPoint);
       const { results } = await response.json();
       const planets = await results.map((planetas) => {
@@ -43,7 +43,7 @@ function MyContextProvider({ children }) {
       column: optionsOfcolumn[0],
       comparison: 'maior que',
     });
-    getPlanets();
+    getPlanetsApi();
   }, [optionsOfcolumn, setPlanetsOnApi]);
 
   const setFilterNameChange = ({ target }) => {
@@ -53,7 +53,7 @@ function MyContextProvider({ children }) {
     });
   };
 
-  const onHandleChange = ({ target }) => {
+  const onHandleChangeFilter = ({ target }) => {
     const { value, name } = target;
     setFilterValues((prev) => ({
       ...prev,
@@ -73,30 +73,31 @@ function MyContextProvider({ children }) {
     setGroupSortedOptions(sortedOptions);
   };
 
-  const onHanleClick = () => {
+  const onHandleClickFilter = () => {
     setGroupOfValues((prev) => [...prev, filterValues]);
     const filtredOptions = optionsOfcolumn
       .filter((column) => column !== filterValues.column);
     setOptionscolumn(filtredOptions);
   };
 
-  const filteredGroupValues = (planets) => {
-    const bools = [];
+  const filterValueGroup = (planets) => {
+    const boolsResult = [];
     groupOfValues.forEach(({ comparison, column, value }) => {
       if (comparison === 'maior que') {
-        bools.push(Number(planets[column]) > Number(value));
+        boolsResult.push(Number(planets[column]) > Number(value));
       }
       if (comparison === 'menor que') {
-        bools.push(Number(planets[column]) < Number(value));
+        boolsResult.push(Number(planets[column]) < Number(value));
       }
       if (comparison === 'igual a') {
-        bools.push(Number(planets[column]) === Number(value));
+        boolsResult.push(Number(planets[column]) === Number(value));
       }
     });
-    return bools.every((el) => el);
+
+    return boolsResult.every((el) => el);
   };
 
-  const prevent = (e) => {
+  const preventForm = (e) => {
     e.preventDefault();
   };
 
@@ -111,21 +112,21 @@ function MyContextProvider({ children }) {
     ]);
   };
 
-  const clearOne = (column) => {
+  const clearOneFilter = (column) => {
     const unusedOptions = groupOfValues
       .filter((valuesFilter) => valuesFilter.column !== column);
     setGroupOfValues(unusedOptions);
-
     setOptionscolumn((prev) => [...prev, column]);
   };
   const { planetName } = planetFilterByName;
 
   const filterHandleName = (planets) => planets.name.match(planetName);
+
   const planetsValues = {
     planetsApi: planetsListApi,
     groupSortedOptions,
     functions: {
-      filteredGroupValues,
+      filterValueGroup,
       filterHandleName,
     },
   };
@@ -133,7 +134,7 @@ function MyContextProvider({ children }) {
   return (
     <myContext.Provider value={ planetsValues }>
       <div>
-        <form onSubmit={ prevent }>
+        <form onSubmit={ preventForm }>
           <input
             data-testid="name-filter"
             type="text"
@@ -141,7 +142,7 @@ function MyContextProvider({ children }) {
             onChange={ setFilterNameChange }
           />
           <select
-            onChange={ onHandleChange }
+            onChange={ onHandleChangeFilter }
             value={ filterValues.column }
             name="column"
             data-testid="column-filter"
@@ -154,7 +155,7 @@ function MyContextProvider({ children }) {
               ))}
           </select>
           <select
-            onChange={ onHandleChange }
+            onChange={ onHandleChangeFilter }
             value={ filterValues.comparison }
             name="comparison"
             data-testid="comparison-filter"
@@ -167,17 +168,16 @@ function MyContextProvider({ children }) {
           </select>
 
           <input
-            onChange={ onHandleChange }
+            onChange={ onHandleChangeFilter }
             value={ filterValues.value }
             data-testid="value-filter"
             name="value"
             type="number"
           />
-
           <button
             type="button"
             data-testid="button-filter"
-            onClick={ onHanleClick }
+            onClick={ onHandleClickFilter }
           >
             enviar
           </button>
@@ -187,10 +187,9 @@ function MyContextProvider({ children }) {
             onClick={ onClickClearAll }
           >
             limpa
-
           </button>
         </form>
-        <form onSubmit={ prevent }>
+        <form onSubmit={ preventForm }>
           <select
             onChange={ sortChange }
             name="column"
@@ -233,7 +232,7 @@ function MyContextProvider({ children }) {
               {column}
               {' '}
               {comparison}
-              <button onClick={ () => clearOne(column) } type="button">lixo</button>
+              <button onClick={ () => clearOneFilter(column) } type="button">lixo</button>
             </span>
             <p />
           </div>
