@@ -5,7 +5,7 @@ function Table() {
   const { planetsApi, functions, groupSortedOptions } = useContext(myContext);
   const { filteredGroupValues, filterHandleName } = functions;
 
-  const sorter = (a, b) => {
+  const sortedColumnValues = (a, b) => {
     const { column, sort } = groupSortedOptions;
     const DESC = a[column] - b[column];
     const ASC = b[column] - a[column];
@@ -15,7 +15,7 @@ function Table() {
     if (sort === '') return planetsApi;
   };
 
-  const excluedUnknown = (a) => {
+  const removeUnknown = (a) => {
     const { column, sort } = groupSortedOptions;
     return sort && !Number.isNaN(+a[column]) ? +'-1' : 0;
   };
@@ -44,8 +44,8 @@ function Table() {
           {planetsApi
             .filter(filterHandleName)
             .filter(filteredGroupValues)
-            .sort(sorter)
-            .sort(excluedUnknown)
+            .sort(sortedColumnValues)
+            .sort(removeUnknown)
             .map(
               ({
                 name,

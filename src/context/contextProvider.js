@@ -115,6 +115,8 @@ function MyContextProvider({ children }) {
     const unusedOptions = groupOfValues
       .filter((valuesFilter) => valuesFilter.column !== column);
     setGroupOfValues(unusedOptions);
+
+    setOptionscolumn((prev) => [...prev, column]);
   };
   const { planetName } = planetFilterByName;
 
