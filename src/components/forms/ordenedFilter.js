@@ -2,9 +2,23 @@ import React, { useContext } from 'react';
 import myContext from '../../context/context';
 
 function OrdenedFilter() {
-  const { functions, states } = useContext(myContext);
+  const { functions, states, setStates } = useContext(myContext);
   const { sortedOptions } = states;
-  const { sortChange, sortClick, preventForm } = functions;
+  const { setSortedOptions, setGroupSortedOptions } = setStates;
+  const { preventForm } = functions;
+
+  const sortChange = ({ target }) => {
+    const { value, name } = target;
+    setSortedOptions((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const sortClick = () => {
+    setGroupSortedOptions(sortedOptions);
+  };
+
   return (
     <form onSubmit={ preventForm }>
       <select
