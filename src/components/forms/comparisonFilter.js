@@ -3,10 +3,7 @@ import myContext from '../../context/context';
 
 function ComparisonFilter() {
   const { states, functions, setStates } = useContext(myContext);
-  const {
-    preventForm,
-    onHandleClickFilter,
-    onClickClearAll } = functions;
+  const { preventForm } = functions;
 
   const {
     filterValues,
@@ -14,7 +11,12 @@ function ComparisonFilter() {
     disableButton,
   } = states;
 
-  const { setFilterValues } = setStates;
+  const {
+    setFilterValues,
+    setGroupOfValues,
+    setDisableButton,
+    setOptionscolumn,
+  } = setStates;
 
   const onHandleChangeFilter = ({ target }) => {
     const { value, name } = target;
@@ -22,6 +24,26 @@ function ComparisonFilter() {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const onHandleClickFilter = () => {
+    setGroupOfValues((prev) => [...prev, filterValues]);
+    const filtredOptions = optionsOfcolumn
+      .filter((column) => column !== filterValues.column);
+    setOptionscolumn(filtredOptions);
+    if (optionsOfcolumn.length === 1) { setDisableButton(true); }
+  };
+
+  const onClickClearAll = () => {
+    setGroupOfValues([]);
+    setOptionscolumn([
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ]);
+    if (optionsOfcolumn.length === 0) { setDisableButton(false); }
   };
 
   return (
