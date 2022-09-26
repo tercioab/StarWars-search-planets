@@ -52,6 +52,14 @@ function MyContextProvider({ children }) {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    if (optionsOfcolumn.length === 0) {
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
+    }
+  }, [optionsOfcolumn]);
+
   const planetsValues = {
     planetsApi: planetsListApi,
     states: {
@@ -77,9 +85,7 @@ function MyContextProvider({ children }) {
     },
   };
   return (
-    <myContext.Provider value={ planetsValues }>
-      {children}
-    </myContext.Provider>
+    <myContext.Provider value={ planetsValues }>{children}</myContext.Provider>
   );
 }
 

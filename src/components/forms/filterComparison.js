@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import myContext from '../../context/context';
 
-function ComparisonFilter() {
+function FilterComparison() {
   const { states, functions, setStates } = useContext(myContext);
   const { preventForm } = functions;
 
@@ -14,7 +14,6 @@ function ComparisonFilter() {
   const {
     setFilterValues,
     setGroupOfValues,
-    setDisableButton,
     setOptionscolumn,
   } = setStates;
 
@@ -31,7 +30,6 @@ function ComparisonFilter() {
     const filtredOptions = optionsOfcolumn
       .filter((column) => column !== filterValues.column);
     setOptionscolumn(filtredOptions);
-    if (optionsOfcolumn.length === 1) { setDisableButton(true); }
   };
 
   const onClickClearAll = () => {
@@ -43,7 +41,6 @@ function ComparisonFilter() {
       'rotation_period',
       'surface_water',
     ]);
-    if (optionsOfcolumn.length === 0) { setDisableButton(false); }
   };
 
   return (
@@ -99,4 +96,4 @@ function ComparisonFilter() {
   );
 }
 
-export default ComparisonFilter;
+export default FilterComparison;
