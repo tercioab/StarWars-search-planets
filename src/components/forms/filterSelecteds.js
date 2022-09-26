@@ -2,9 +2,18 @@ import React, { useContext } from 'react';
 import myContext from '../../context/context';
 
 function FilterSelecteds() {
-  const { functions, states } = useContext(myContext);
-  const { groupOfValues, disableButton } = states;
-  const { clearOneFilter } = functions;
+  const { states, setStates } = useContext(myContext);
+  const { groupOfValues, disableButton, optionsOfcolumn } = states;
+  const { setOptionscolumn, setGroupOfValues, setDisableButton } = setStates;
+
+  const clearOneFilter = (column) => {
+    const unusedOptions = groupOfValues
+      .filter((valuesFilter) => valuesFilter.column !== column);
+    setGroupOfValues(unusedOptions);
+    setOptionscolumn((prev) => [...prev, column]);
+    if (optionsOfcolumn.length === 0) { setDisableButton(false); }
+  };
+
   return (
     <div>
       {disableButton && 'todos os filtros foram utilizados'}
