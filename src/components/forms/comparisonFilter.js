@@ -3,9 +3,20 @@ import myContext from '../../context/context';
 
 function ComparisonFilter() {
   const { states, functions } = useContext(myContext);
-  const { preventForm,
-    onHandleClickFilter, onHandleChangeFilter, onClickClearAll } = functions;
-  const { filterValues, optionsOfcolumn, disableButton } = states;
+
+  const {
+    preventForm,
+    onHandleClickFilter,
+    onHandleChangeFilter,
+    onClickClearAll,
+  } = functions;
+
+  const {
+    filterValues,
+    optionsOfcolumn,
+    disableButton,
+  } = states;
+
   return (
     <form onSubmit={ preventForm }>
       <select
