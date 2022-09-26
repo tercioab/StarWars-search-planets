@@ -2,20 +2,27 @@ import React, { useContext } from 'react';
 import myContext from '../../context/context';
 
 function ComparisonFilter() {
-  const { states, functions } = useContext(myContext);
-
+  const { states, functions, setStates } = useContext(myContext);
   const {
     preventForm,
     onHandleClickFilter,
-    onHandleChangeFilter,
-    onClickClearAll,
-  } = functions;
+    onClickClearAll } = functions;
 
   const {
     filterValues,
     optionsOfcolumn,
     disableButton,
   } = states;
+
+  const { setFilterValues } = setStates;
+
+  const onHandleChangeFilter = ({ target }) => {
+    const { value, name } = target;
+    setFilterValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <form onSubmit={ preventForm }>
