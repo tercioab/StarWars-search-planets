@@ -1,9 +1,28 @@
 import React, { useContext } from 'react';
-import myContext from '../context/context';
+import myContext from '../../context/context';
 
-function Table() {
-  const { planetsApi, functions, groupSortedOptions } = useContext(myContext);
-  const { filterValueGroup, filterHandleName } = functions;
+function TableLogic() {
+  const { planetsApi, states } = useContext(myContext);
+  const { planetFilterByName, groupOfValues, groupSortedOptions } = states;
+
+  const tablesValues = [
+    'Name', 'Rotation',
+    'Orbital', 'Diameter',
+    'Climate', 'Gravity',
+    'Terrain', 'SurfaceWater',
+    'Population', 'Films',
+    'Created', 'Edited',
+    'Url'];
+  const filterHandleName = (planets) => planets.name.match(planetFilterByName.planetName);
+
+  const removeUnknown = (a) => {
+    const { column, sort } = groupSortedOptions;
+    return sort && !Number.isNaN(+a[column]) ? +'-1' : 0;
+  };
+
+  const listTables = (values) => (
+    values.map((planets) => <th key={ planets }>{planets}</th>)
+  );
 
   const sortedColumnValues = (a, b) => {
     const { column, sort } = groupSortedOptions;
@@ -14,9 +33,21 @@ function Table() {
     if (sort === '') return planetsApi;
   };
 
-  const removeUnknown = (a) => {
-    const { column, sort } = groupSortedOptions;
-    return sort && !Number.isNaN(+a[column]) ? +'-1' : 0;
+  const filterValueGroup = (planets) => {
+    const boolsResult = [];
+    groupOfValues.forEach(({ comparison, column, value }) => {
+      if (comparison === 'maior que') {
+        boolsResult.push(Number(planets[column]) > Number(value));
+      }
+      if (comparison === 'menor que') {
+        boolsResult.push(Number(planets[column]) < Number(value));
+      }
+      if (comparison === 'igual a') {
+        boolsResult.push(Number(planets[column]) === Number(value));
+      }
+    });
+
+    return boolsResult.every((el) => el);
   };
 
   return (
@@ -24,19 +55,7 @@ function Table() {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Rotation</th>
-            <th>Orbital</th>
-            <th>Diameter</th>
-            <th>Climate</th>
-            <th>Gravity</th>
-            <th>Terrain</th>
-            <th>SurfaceWater</th>
-            <th>Population</th>
-            <th>Films</th>
-            <th>Created</th>
-            <th>Edited</th>
-            <th>Url</th>
+            {listTables(tablesValues)}
           </tr>
         </thead>
         <tbody>
@@ -83,4 +102,5 @@ function Table() {
     </div>
   );
 }
-export default Table;
+
+export default TableLogic;

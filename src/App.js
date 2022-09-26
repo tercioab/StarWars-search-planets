@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Table from './components/table';
+import Table from './pages/table';
 import MyContextProvider from './context/contextProvider';
 
 function App() {
