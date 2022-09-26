@@ -16,7 +16,7 @@ function FilterSelecteds() {
 
   return (
     <div>
-      {disableButton && 'todos os filtros foram utilizados'}
+      {disableButton && 'todos os filtros já foram utilizados'}
       {groupOfValues.map(({ value, column, comparison }, i) => (
         <div key={ i }>
           <span data-testid="filter">

@@ -13,7 +13,9 @@ function TableLogic() {
     'Population', 'Films',
     'Created', 'Edited',
     'Url'];
-  const filterHandleName = (planets) => planets.name.match(planetFilterByName.planetName);
+
+  const filterHandleName = (planets) => planets
+    .name.toUpperCase().match(planetFilterByName.planetName?.toUpperCase());
 
   const removeUnknown = (a) => {
     const { column, sort } = groupSortedOptions;

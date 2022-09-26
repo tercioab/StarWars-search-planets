@@ -8,9 +8,9 @@ import TableLogic from '../components/table/tableLogic';
 function Table() {
   return (
     <>
+      <ComparisonFilter />
       <FilterByName />
       <OrdenedFilter />
-      <ComparisonFilter />
       <FilterSelecteds />
       <TableLogic />
     </>
