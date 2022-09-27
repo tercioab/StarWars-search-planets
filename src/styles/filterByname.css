@@ -1,0 +1,12 @@
+.planetName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.planetName label {
+    display: flex;
+    flex-direction: column;
+    
+}

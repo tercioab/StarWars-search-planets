@@ -1,0 +1,45 @@
+.filterSelected { 
+
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    margin-left: 1rem;
+    background-color: rgb(206, 206, 206);
+}
+
+
+.selectedFilters {
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+   
+}
+
+.selectedP{
+    margin-bottom: 1rem;
+    animation: text 1s infinite alternate;
+}
+
+@keyframes text {
+  from {
+    color: rgb(0, 102, 255);
+  }
+  to {
+    color: rgb(216, 216, 216);
+  }
+}
+
+.selectedAlert {
+color: red;
+margin-bottom: 1rem;
+animation: alert 1s infinite alternate;
+}
+
+@keyframes alert {
+  from {
+    color: red;
+  }
+  to {
+    color: rgb(150, 150, 150);
+  }
+}

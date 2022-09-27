@@ -1,0 +1,39 @@
+.columnFilter {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+   background-color: rgb(0, 0, 0);
+   height: 4rem;
+   color: aliceblue;
+}
+
+.columnFilter label{
+
+    margin-left: 2rem;
+    
+    
+}
+
+ button {
+    margin-left: 1rem;
+    padding:  0.2rem 2rem 0.2rem 2rem;
+    border-style: none;
+    border-radius: 0.5rem;
+}
+
+ select {
+    padding:  0.1rem 1rem 0.1rem 1rem;
+    border-radius: 0.5rem;
+    border-style: none;
+    border: solid 1px black;
+    
+}
+
+ input {
+    padding:  0.1rem 0.5rem 0.1rem 0.5rem;
+    border-radius: 0.5rem;
+    border-style: none;
+    border: solid 1px black;
+}
+
