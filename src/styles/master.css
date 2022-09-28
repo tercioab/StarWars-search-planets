@@ -32,9 +32,14 @@
   @media (max-width: 700px) {
 
     .logo {
+      margin-left: 0%;
+      margin-right: 0%;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
       width: 50px;
       margin-left: auto;
       margin-right: auto;
+      
     }
 
     .header-page {
@@ -45,9 +50,10 @@
     }
 
     table {
+    
       text-align: left;
       position: relative;
-      overflow: hidden;
+      /* overflow: hidden; */
       background-color: #f6f6f6;
     }
     td, th {
@@ -72,12 +78,10 @@
       color: #ffffff;
     }
 
-* {
-  overflow:hidden;
-}
-
 
 .container {
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
   padding: 15px;
 }
@@ -93,5 +97,5 @@
 }
 
 .image-card {
-  width: 10rem;
+  width: 5rem;
 }
