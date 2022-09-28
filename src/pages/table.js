@@ -8,16 +8,16 @@ import TableLogic from "../components/table/tableLogic";
 function Table() {
 	return (
 		<>
-			<header>
+			<header className="header-page">
 				<img alt="starwars" src="https://logodownload.org/wp-content/uploads/2015/12/star-wars-logo-1-1.png" className="logo"/>
 				<FilterComparison />
 				<FilterByName />
 				<OrdenedFilter />
 				<FilterSelecteds />
 			</header>
-			<body className="body-table">
+			<section className="body-table">
 				<TableLogic />
-			</body>
+			</section>
 		</>
 	);
 }

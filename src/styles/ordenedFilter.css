@@ -11,7 +11,7 @@
     margin-bottom: 1rem;
     border-radius: 1rem;
     color: white;
-    
+    border: solid 4px rgb(138, 138, 138);
 }
 
 .sortedForm select {
@@ -20,4 +20,49 @@
 
 .sortedForm label {
     margin-left: 1rem;
+}
+
+@media (max-width: 700px) { 
+
+    .sortedForm select {
+        margin-right: 0rem;
+    }
+   
+    .sortedForm button {
+        margin-top: 1rem;
+        margin: 0.5rem;
+    }
+
+    .sortedForm {
+        height: 8rem;
+        width: 15rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0.5rem;
+    }
+
+    .sortedForm label {
+        font-size: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0.5rem;
+    }
+
+    .radio {
+        display:flex;
+        margin: 0.5rem;
+    }
+
+    .table-values {
+        width: 2rem;
+        border: solid 2px red;
+    }
+
+    .sortedForm button { 
+       
+
+    }
 }

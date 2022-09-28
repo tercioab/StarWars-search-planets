@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import myContext from "../../context/context";
-import { Radio} from "@mui/material";
+import { Radio } from "@mui/material";
 
 function OrdenedFilter() {
 	const { functions, states, setStates } = useContext(myContext);
@@ -23,8 +23,7 @@ function OrdenedFilter() {
 	return (
 		<form onSubmit={preventForm} className='sortedForm'>
 			<label htmlFor='sortedOptions'>
-				Order By
-				{" "}
+				Order By{" "}
 				<select
 					id='sortedOptions'
 					onChange={sortChange}
@@ -50,35 +49,34 @@ function OrdenedFilter() {
 				</select>
 			</label>
 
-			<label htmlFor='DESC'>
-				DESC
-				{" "}
-				<input
-					id='DESC'
-					onClick={sortChange}
-					type='radio'
-					name='sort'
-					data-testid='column-sort-input-desc'
-					value='DESC'
-					control={<Radio />}
-					label='DESC'
-				/>
-			</label>
-			{" "}
-			<label htmlFor="ASC">
-				ASC
-				{" "}
-				<input
-					type='radio'
-					id='ASC'
-					onClick={sortChange}
-					name='sort'
-					data-testid='column-sort-input-asc'
-					value='ASC'
-					control={<Radio />}
-					label='ASC'
-				/>
-			</label>
+			<section className="radio">
+				<label htmlFor='DESC'>
+					DESC{" "}
+					<input
+						id='DESC'
+						onClick={sortChange}
+						type='radio'
+						name='sort'
+						data-testid='column-sort-input-desc'
+						value='DESC'
+						control={<Radio />}
+						label='DESC'
+					/>
+				</label>{" "}
+				<label htmlFor='ASC'>
+					ASC{" "}
+					<input
+						type='radio'
+						id='ASC'
+						onClick={sortChange}
+						name='sort'
+						data-testid='column-sort-input-asc'
+						value='ASC'
+						control={<Radio />}
+						label='ASC'
+					/>
+				</label>
+			</section>
 
 			<button
 				variant='contained'

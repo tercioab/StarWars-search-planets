@@ -7,11 +7,11 @@
 }
 
 .logo {
-    width: 240px;
-    margin-left: 40%;
-    margin-right: 40%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  width: 240px;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   animation: blur 4s  alternate;
 }
 
@@ -23,3 +23,75 @@
       filter: blur(opx);
     }
   }
+
+  .header-page {
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 700px) {
+
+    .logo {
+      width: 50px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .header-page {
+      display: flex;
+      flex-direction: column;
+      justify-self: center;
+    }
+    }
+
+    table {
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      background-color: #f6f6f6;
+    }
+    td, th {
+      border: 1px solid rgb(0, 0, 0);
+      border-radius: 0.5rem;
+      padding: 20px;
+    }
+    th {
+      background: rgb(0, 0, 0);
+      color: white;
+      border-radius: 0.5rem;
+      position: sticky;
+      top: 0;
+      padding: 10px;
+    }
+    .primary{
+      background-color: #000000
+    }
+    
+    tfoot > tr  {
+      background: black;
+      color: #ffffff;
+    }
+
+* {
+  overflow:hidden;
+}
+
+
+.container {
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.gallery-wrapper {
+  overflow-x: auto;
+}
+
+.gallery {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 26rem;
+}
+
+.image-card {
+  width: 10rem;
+}

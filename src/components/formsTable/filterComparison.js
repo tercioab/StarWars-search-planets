@@ -37,70 +37,74 @@ function FilterComparison() {
 	};
 
 	return (
-		<div className='columnFilter' >
-			<form onSubmit={preventForm} >
-				<label htmlFor='column'>
-          Select Column
-          {' '}
-					<select
-						onChange={onHandleChangeFilter}
-						value={filterValues.column}
-						id='column'
-						name='column'
-						data-testid='column-filter'
-					>
-						{optionsOfcolumn.map(columnValue => (
-							<option value={columnValue} key={columnValue}>
-								{columnValue}
+		<div>
+			<form onSubmit={preventForm} className='columnFilter'>
+				<div className='formContent'>
+					<label htmlFor='column'>
+						Select Column{" "}
+						<select
+							onChange={onHandleChangeFilter}
+							value={filterValues.column}
+							id='column'
+							name='column'
+							data-testid='column-filter'
+						>
+							{optionsOfcolumn.map(columnValue => (
+								<option value={columnValue} key={columnValue}>
+									{columnValue}
+								</option>
+							))}
+						</select>
+					</label>
+					<label htmlFor='comparison'>
+						Comparison{" "}
+						<select
+							id='comparison'
+							onChange={onHandleChangeFilter}
+							value={filterValues.comparison}
+							name='comparison'
+							data-testid='comparison-filter'
+						>
+							<option value='maior que' selected>
+								Maior Que
 							</option>
-						))}
-					</select>
-				</label>
-				<label htmlFor='comparison'>
-          Comparison 
-          {' '}
-					<select
-						id='comparison'
-						onChange={onHandleChangeFilter}
-						value={filterValues.comparison}
-						name='comparison'
-						data-testid='comparison-filter'
-					>
-						<option value='maior que' selected>
-							Maior Que
-						</option>
-						<option value='menor que'>Menor Que</option>
-						<option value='igual a'>Igual A</option>
-					</select>
-				</label>
-				<label htmlFor='number'>
-          Number
-          {' '}
-					<input
-						id='number'
-						onChange={onHandleChangeFilter}
-						value={filterValues.value}
-						data-testid='value-filter'
-						name='value'
-						type='number'
-					/>
-				</label>
-				<button
-					type='button'
-					id='submitButton'
-					data-testid='button-filter'
-					onClick={onHandleClickFilter}
-					disabled={disableButton}
-				>
-					SUBMIT
-				</button>
-				<button
-					data-testid='button-remove-filters'
-					type='button'
-					onClick={onClickClearAll}
-				>
-					CLEAR
-				</button>
+							<option value='menor que'>Menor Que</option>
+							<option value='igual a'>Igual A</option>
+						</select>
+					</label>
+					<label htmlFor='number'>
+						Number{" "}
+						<input
+							id='number'
+							onChange={onHandleChangeFilter}
+							value={filterValues.value}
+							data-testid='value-filter'
+							name='value'
+							type='number'
+						/>
+					</label>
+
+					
+				
+				</div>
+				<section className="btn-form-comparison">
+						<button
+							type='button'
+							id='submitButton'
+							data-testid='button-filter'
+							onClick={onHandleClickFilter}
+							disabled={disableButton}
+						>
+							SUBMIT
+						</button>
+						<button
+							data-testid='button-remove-filters'
+							type='button'
+							onClick={onClickClearAll}
+						>
+							CLEAR
+						</button>
+					</section>
 			</form>
 		</div>
 	);
