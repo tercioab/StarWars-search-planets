@@ -42,7 +42,7 @@ input {
 		flex-direction: column;
 		height: 14rem;
 		border-radius: 0.5rem;
-		width: 40rem;
+		width: 20rem;
 		color: aliceblue;
 		justify-content: center;
 		align-items: center;
@@ -53,16 +53,16 @@ input {
 		display: flex;
 		flex-direction: column;
 		margin-top: 5px;
-		font-size: 15px;
+		font-size: 10px;
 	}
 
 	.columnFilter input {
-		width: 30rem;
+		width: 16rem;
 		margin: auto;
 	}
 
 	.columnFilter select {
-		width: 31rem;
+		width: 17rem;
 		margin: auto;
 	}
 
@@ -78,7 +78,7 @@ input {
 
     .btn-form-comparison button {
       margin: auto;
-      width: 8rem;
+      width: 7rem;
       font-size: 10px;
       justify-content: center;
       align-items:baseline;
@@ -105,7 +105,7 @@ input {
 		flex-direction: column;
 		height: 14rem;
 		border-radius: 0.5rem;
-		width: 25rem;
+		width: 15rem;
 		color: aliceblue;
 		justify-content: center;
 		align-items: center;

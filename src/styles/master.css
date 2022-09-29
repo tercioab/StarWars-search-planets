@@ -89,7 +89,7 @@
 }
 
 .gallery-wrapper {
-  overflow-x: auto;
+  overflow-x: auto !important;
 }
 
 .gallery {
