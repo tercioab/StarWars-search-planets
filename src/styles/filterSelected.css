@@ -17,7 +17,7 @@
 }
 
 .selectedP{
-    animation: text 1s infinite alternate;
+  color: rgb(0, 0, 0);
 }
 
 .tags {
@@ -27,18 +27,10 @@
   justify-content: center;
   width: 40rem;
   padding: 1rem;
+ 
 }
 
 
-
-@keyframes text {
-  from {
-    color: rgb(0, 102, 255);
-  }
-  to {
-    color: rgb(216, 216, 216);
-  }
-}
 
 .selectedAlert {
 color: rgb(255, 102, 0);

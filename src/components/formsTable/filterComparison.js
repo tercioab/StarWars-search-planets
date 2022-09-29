@@ -22,6 +22,7 @@ function FilterComparison() {
 		const filtredOptions = optionsOfcolumn.filter(
 			column => column !== filterValues.column,
 		);
+	
 		setOptionscolumn(filtredOptions);
 	};
 
@@ -66,10 +67,10 @@ function FilterComparison() {
 							data-testid='comparison-filter'
 						>
 							<option value='maior que' selected>
-								Maior Que
+								Bigger Than
 							</option>
-							<option value='menor que'>Menor Que</option>
-							<option value='igual a'>Igual A</option>
+							<option value='menor que'>Less Than</option>
+							<option value='igual a'>Equal To</option>
 						</select>
 					</label>
 					<label htmlFor='number'>

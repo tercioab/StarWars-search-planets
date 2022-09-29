@@ -19,10 +19,11 @@ function FilterSelecteds() {
 	return (
 		<div className='selectedFilters'>
 			{disableButton && (
-				<p className='selectedAlert'>TODOS OS FILTROS JÁ FORAM UTILIZADOS</p>
+				<p className='selectedAlert'>ALL FILTERS HAVE BEEN USED</p>
 			)}
-			{groupOfValues.length > 0 && <p className='selectedP'>FILTROS UTILIZADOS</p>}
+		{groupOfValues.length > 0 && <p className='selectedP'>FILTERS USED</p>}
 			<div className="tags">
+			
 				{groupOfValues.map(({ value, column, comparison }, i) => (
 					<span className='filterSelected' data-testid='filter'>
 						{column} {comparison} {value}
