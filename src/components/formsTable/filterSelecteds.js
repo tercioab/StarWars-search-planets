@@ -1,8 +1,7 @@
-import { Button } from "@mui/material";
 import React, { useContext } from "react";
 import myContext from "../../context/context";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { orange, pink, red } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 
 function FilterSelecteds() {
 	const { states, setStates } = useContext(myContext);
