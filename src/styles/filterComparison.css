@@ -42,7 +42,7 @@ input {
 		flex-direction: column;
 		height: 14rem;
 		border-radius: 0.5rem;
-		width: 20rem;
+		width: 40rem;
 		color: aliceblue;
 		justify-content: center;
 		align-items: center;
@@ -53,16 +53,16 @@ input {
 		display: flex;
 		flex-direction: column;
 		margin-top: 5px;
-		font-size: 10px;
+		font-size: 15px;
 	}
 
 	.columnFilter input {
-		width: 16rem;
+		width: 30rem;
 		margin: auto;
 	}
 
 	.columnFilter select {
-		width: 17rem;
+		width: 31rem;
 		margin: auto;
 	}
 
@@ -105,7 +105,7 @@ input {
 		flex-direction: column;
 		height: 14rem;
 		border-radius: 0.5rem;
-		width: 15rem;
+		width: 25rem;
 		color: aliceblue;
 		justify-content: center;
 		align-items: center;
