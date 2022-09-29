@@ -10,7 +10,6 @@
   width: 150px;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  animation: blur 4s  alternate;
 }
 
 .header-page {
@@ -18,14 +17,6 @@
   flex-direction: column;
 }
 
-@keyframes blur {
-    from {
-      filter: blur(10px);
-    }
-    to {
-      filter: blur(opx);
-    }
-  }
 
   .header-page {
     justify-content: center;
@@ -100,4 +91,58 @@
 
 .image-card {
   width: 5rem;
+}
+
+
+.starDeath {
+  width: 10rem;
+}
+
+.loading {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.loading h5 {
+  margin-top: 5px;
+  animation: color 1s infinite alternate;
+  transition: 1s;
+
+}
+
+@keyframes color {
+  from {
+   color: white;
+
+  }
+
+  to {
+   color: black;
+
+  }
+}
+
+
+
+
+
+.loading img {
+  animation: floating 1s infinite alternate;
+  transition: 2s;
+  
+}
+
+@keyframes floating {
+  from {
+   margin-bottom: 3rem;
+  }
+
+  to {
+
+   margin-bottom: 0;
+  }
 }

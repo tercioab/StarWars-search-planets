@@ -3,7 +3,7 @@ import myContext from "../../context/context";
 
 function TableLogic() {
 	const { planetsApi, states } = useContext(myContext);
-	const { planetFilterByName, groupOfValues, groupSortedOptions } = states;
+	const { planetFilterByName, groupOfValues, groupSortedOptions, loading } = states;
 
 	const tablesValues = [
 		"Name",
@@ -65,7 +65,7 @@ function TableLogic() {
 						<div>
 							<table  className="item current-item" >
 								<thead>
-									<tr>{listTables(tablesValues)}</tr>
+								<tr>{listTables(tablesValues)}</tr>
 								</thead>
 								<tbody>
 									{planetsApi

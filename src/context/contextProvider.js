@@ -28,10 +28,13 @@ function MyContextProvider({ children }) {
 		sort: "",
 	});
 
+	 const [loading, setLoading] = useState(false)
+
 	const [disableButton, setDisableButton] = useState(false);
 
 	useEffect(() => {
 		const getPlanetsApi = async () => {
+			setLoading(true)
 			const response = await fetch(endPoint);
 			const { results } = await response.json();
 			const planets = await results.map(planetas => {
@@ -39,6 +42,7 @@ function MyContextProvider({ children }) {
 				return planetas;
 			});
 			setPlanetsOnApi(planets);
+			setLoading(false)
 		};
 		getPlanetsApi();
 	}, [setPlanetsOnApi]);
@@ -77,6 +81,7 @@ function MyContextProvider({ children }) {
 			disableButton,
 			planetFilterByName,
 			groupSortedOptions,
+			loading,
 		},
 		setStates: {
 			setDisableButton,

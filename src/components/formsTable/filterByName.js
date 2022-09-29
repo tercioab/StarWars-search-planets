@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import myContext from '../../context/context';
 
 function FilterByName() {
-  const { setStates } = useContext(myContext);
+  const { setStates, states } = useContext(myContext);
   const { setFilterByName } = setStates;
+  const { loading } = states 
 
   const setFilterNameChange = ({ target }) => {
     const { value, name } = target;
@@ -13,7 +14,7 @@ function FilterByName() {
   };
 
   return (
-    <form className='planetName'>
+  <form className='planetName'>
       <label
         htmlFor="planetName"
         className='planetNameInput'>
