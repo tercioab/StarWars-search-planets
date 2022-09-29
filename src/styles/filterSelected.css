@@ -3,22 +3,33 @@
     padding: 0.2rem 0.5rem 0.2rem 0.5rem;
     border-radius: 0.5rem;
     margin-left: 1rem;
-    background-color: rgb(206, 206, 206);
+    color: rgb(0, 0, 0);
+    border: solid 2px rgb(255, 102, 0);
+    margin-top: 1rem;
 }
 
 
 .selectedFilters {
     text-align: center;
     justify-content: center;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.6rem;
    
 }
 
 .selectedP{
-    margin-bottom: 1rem;
     animation: text 1s infinite alternate;
 }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 40rem;
+  padding: 1rem;
+}
+
+
 
 @keyframes text {
   from {
@@ -30,14 +41,14 @@
 }
 
 .selectedAlert {
-color: red;
+color: rgb(255, 102, 0);
 margin-bottom: 1rem;
 animation: alert 1s infinite alternate;
 }
 
 @keyframes alert {
   from {
-    color: red;
+    color:rgb(255, 102, 0);
   }
   to {
     color: rgb(150, 150, 150);

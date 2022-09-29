@@ -2,21 +2,60 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 10rem;
+    margin-right: auto;
+    margin-left: auto;
+    border: solid 2px rgb(255, 102, 0);
+    border-radius: 0.5rem;
 }
 
 .planetName label {
     display: flex;
     flex-direction: column;
-    font-size: 10px;
+    font-size: 14px;
+    
+}
+
+@media (max-width: 800px) {  
+
+    .planetName {
+        padding: 0rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        width: 20rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .planetName label {
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+        
+    }
     
 }
 
 @media (max-width: 700px) {  
 
     .planetName {
-        width: 20vh;
+        padding: 0rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        width: 15rem;
         margin-left: auto;
         margin-right: auto;
     }
+
+    .planetName label {
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+        
+    }
+    
 }

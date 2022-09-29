@@ -1,4 +1,5 @@
 .sortedForm {
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +12,7 @@
     margin-bottom: 1rem;
     border-radius: 1rem;
     color: white;
-    border: solid 4px rgb(138, 138, 138);
+    border: solid 2px rgb(255, 102, 0);
 }
 
 .sortedForm select {
@@ -21,6 +22,57 @@
 .sortedForm label {
     margin-left: 1rem;
 }
+
+
+
+@media (max-width: 800px) { 
+
+    .sortedForm select {
+        margin-right: 0rem;
+    }
+   
+    .sortedForm button {
+        margin-top: 1rem;
+        margin: 0.5rem;
+    }
+
+    .sortedForm {
+        height: 8rem;
+        width: 20rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0.5rem;
+    }
+
+    .sortedForm label {
+        font-size: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0.5rem;
+    }
+
+    .radio {
+        display:flex;
+        margin: 0.5rem;
+    }
+
+    .table-values {
+        width: 4rem;
+        border: solid 2px red;
+    }
+
+    .sortedForm button { 
+       
+
+    }
+}
+
+
+
+
 
 @media (max-width: 700px) { 
 

@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React, { useContext } from "react";
 import myContext from "../../context/context";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { orange, pink, red } from "@mui/material/colors";
 
 function FilterSelecteds() {
 	const { states, setStates } = useContext(myContext);
@@ -18,23 +19,21 @@ function FilterSelecteds() {
 
 	return (
 		<div className='selectedFilters'>
-			{disableButton &&
-				<p className="selectedAlert">TODOS OS FILTROS JÁ FORAM UTILIZADOS</p>
-			}
-			{groupOfValues.length > 0 && <p className="selectedP">FILTROS UTILIZADOS</p>}
-
-			{groupOfValues.map(({ value, column, comparison }, i) => (
-				
-					<span className="filterSelected" data-testid='filter'>
-						{value} {column} {comparison}
-						<Button
+			{disableButton && (
+				<p className='selectedAlert'>TODOS OS FILTROS JÁ FORAM UTILIZADOS</p>
+			)}
+			{groupOfValues.length > 0 && <p className='selectedP'>FILTROS UTILIZADOS</p>}
+			<div className="tags">
+				{groupOfValues.map(({ value, column, comparison }, i) => (
+					<span className='filterSelected' data-testid='filter'>
+						{column} {comparison} {value}
+						<DeleteIcon
+							sx={{ color: red[500], fontSize: 15 }}
 							onClick={() => clearOneFilter(column)}
-							startIcon={<DeleteIcon />}
 						/>
 					</span>
-					
-				
-			))}
+				))}
+			</div>
 		</div>
 	);
 }

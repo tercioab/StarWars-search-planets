@@ -9,10 +9,10 @@ function Table() {
 	return (
 		<>
 			<header className="header-page">
-				<img alt="starwars" src="https://logodownload.org/wp-content/uploads/2015/12/star-wars-logo-1-1.png" className="logo"/>
+			<img src="https://www.freepnglogos.com/uploads/star-wars-logo-png-8.png" width="200" alt="star wars logo png" className="logo" />
 				<FilterComparison />
-				<FilterByName />
 				<OrdenedFilter />
+				<FilterByName />
 				<FilterSelecteds />
 			</header>
 			<section className="body-table">
