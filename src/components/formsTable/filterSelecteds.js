@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import myContext from "../../context/context";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { red } from "@mui/material/colors";
+import { orange } from "@mui/material/colors";
 
 function FilterSelecteds() {
 	const { states, setStates } = useContext(myContext);
@@ -28,7 +28,7 @@ function FilterSelecteds() {
 					<span className='filterSelected' data-testid='filter'>
 						{column} {comparison} {value}
 						<DeleteIcon
-							sx={{ color: red[500], fontSize: 15 }}
+							sx={{ color: orange[500], fontSize: 15 }}
 							onClick={() => clearOneFilter(column)}
 						/>
 					</span>

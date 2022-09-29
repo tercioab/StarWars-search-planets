@@ -60,7 +60,6 @@ function MyContextProvider({ children }) {
 		} else {
 			setDisableButton(false);
     }
-    
 	}, [optionsOfcolumn]);
 
 	const preventForm = e => {

@@ -26,8 +26,6 @@
   align-items: center;
   justify-content: center;
   width: 40rem;
-  padding: 1rem;
- 
 }
 
 
@@ -45,4 +43,18 @@ animation: alert 1s infinite alternate;
   to {
     color: rgb(150, 150, 150);
   }
+}
+
+@media (max-width: 700px) {
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 20rem;
+   
+  }
+  
+
 }
