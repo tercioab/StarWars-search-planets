@@ -19,7 +19,7 @@ function Table() {
 						className='starDeath'
 						src='https://i.pinimg.com/originals/3d/ec/7e/3dec7e73407a05cff27bfdaed598c020.png'
 					/>
-					<h5>CARREGANDO...</h5>
+					<h5>LOADING...</h5>
 				</div>
 			) : (
 				<>
