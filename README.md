@@ -38,4 +38,4 @@ npm start
 ```
 </details>
 
-[DEPLOY](star-wars-search-planets.vercel.app)
+[DEPLOY](https://star-wars-search-planets.vercel.app/)
