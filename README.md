@@ -38,5 +38,4 @@ npm start
 ```
 </details>
 
-
-<a href="star-wars-search-planets.vercel.app" target="_blank" >Deploy<a/>
+[DEPLOY](star-wars-search-planets.vercel.app)
