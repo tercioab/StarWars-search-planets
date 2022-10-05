@@ -39,5 +39,5 @@ npm start
 </details>
 
 
-![alt text](/home/tercio/StarWars-search-planets/Captura de tela de 2022-10-04 21-51-43.png)
+![alt text](/Captura%20de%20tela%20de%202022-10-04%2021-51-43.png)
 [DEPLOY](https://star-wars-search-planets.vercel.app/)
